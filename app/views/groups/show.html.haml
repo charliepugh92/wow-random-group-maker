@@ -1,0 +1,7 @@
+- @groups.each_with_index do |group, i|
+  .group
+    %h1 Group #{i + 1}
+    %h3 Tank: #{group[:tank].name}
+    %h3 Healer: #{group[:healer].name}
+    - group[:dps].each do |dps|
+      %h3 DPS: #{dps.name}
