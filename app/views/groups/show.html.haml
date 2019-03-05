@@ -1,7 +1,12 @@
-- @groups.each_with_index do |group, i|
-  .group
-    %h1 Group #{i + 1}
-    %h3 Tank: #{group[:tank].name}
-    %h3 Healer: #{group[:healer].name}
-    - group[:dps].each do |dps|
-      %h3 DPS: #{dps.name}
+.groups
+  - @groups.each_with_index do |group, i|
+    .group
+      %h1 Group #{i + 1}
+      %h3 Tank: #{group[:tank].name}
+      %h3 Healer: #{group[:healer].name}
+      - group[:dps].each do |dps|
+        %h3 DPS: #{dps.name}
+
+.links
+  = link_to 'Generate Again', groups_path
+  = link_to 'Back to Characters', root_path

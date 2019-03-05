@@ -19,9 +19,10 @@
     <% @characters.each do |character| %>
       <tr>
         <td><%= character.name %></td>
-        <td><%= character.tank %></td>
-        <td><%= character.dps %></td>
-        <td><%= character.healer %></td>
+
+        <td><%= fa_icon 'check' if character.tank %></td>
+        <td><%= fa_icon 'check' if character.dps %></td>
+        <td><%= fa_icon 'check' if character.healer %></td>
         <td><%= link_to 'Show', character %></td>
         <td><%= link_to 'Edit', edit_character_path(character) %></td>
         <td><%= link_to 'Destroy', character, method: :delete, data: { confirm: 'Are you sure?' } %></td>
