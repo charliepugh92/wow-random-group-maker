@@ -34,7 +34,7 @@ class Character < ApplicationRecord
         break if tanks.count == count
         tanks.push tank
       end
-      
+
       if tanks.count < count
         other_tanks = Character.where(tank: true).where.not(id: tank_only.map(&:id)).where.not(id: already_assigned_ids).order('RANDOM()')
         other_tanks.each do |tank|
@@ -49,7 +49,7 @@ class Character < ApplicationRecord
     def get_healers(count, already_assigned_ids = [])
       heals = []
 
-      heal_only = Character.where(tank: false, healer: true, dps: false).where.not(id: already_assigned_ids).order('RANDOM()')
+      heal_only = Character.where(healer: true, dps: false).where.not(id: already_assigned_ids).order('RANDOM()')
       heal_only.each do |healer|
         break if heals.count == count
         heals.push healer
