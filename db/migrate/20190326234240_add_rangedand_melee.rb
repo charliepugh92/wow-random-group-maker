@@ -3,7 +3,7 @@ class AddRangedandMelee < ActiveRecord::Migration[5.1]
     add_column :characters, :rdps, :boolean
     add_column :characters, :mdps, :boolean
 
-    Character.each do |character|
+    Character.all.each do |character|
       character.update(rdps: character.dps, mdps: character.dps)
     end
 
@@ -13,7 +13,7 @@ class AddRangedandMelee < ActiveRecord::Migration[5.1]
   def down
     add_column :characters, :dps, :boolean
 
-    Character.each do |character|
+    Character.all.each do |character|
       character.update(dps: character.mdps || character.rdps)
     end
 

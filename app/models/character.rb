@@ -68,26 +68,33 @@ class Character < ApplicationRecord
 
     def get_dps(count, already_assigned_ids = [])
       dps = []
-      current_index = 0
+      next_index = 0
 
       count.times { |i| dps.push [] }
 
       rdps_only = Character.where.not(id: already_assigned_ids).where(rdps: true, mdps: false).order('RANDOM()')
       rdps_only.each do |rdps|
-        dps[current_index % 3].push rdps
-        current_index += 1
+        dps[next_index % 3].push rdps
+        next_index += 1
+        break if next_index >= count * 3
       end
 
-      mdps_only = Character.where.not(id: already_assigned_ids).where(rdps: false, mdps: true).order('RANDOM()')
-      mdps_only.each do |mdps|
-        dps[current_index % 3].push mdps
-        current_index += 1
-      end
+      if next_index < count * 3
+        mdps_only = Character.where.not(id: already_assigned_ids).where(rdps: false, mdps: true).order('RANDOM()')
+        mdps_only.each do |mdps|
+          dps[next_index % 3].push mdps
+          next_index += 1
+          break if next_index >= count * 3
+        end
 
-      flex_dps = Character.where.not(id: already_assigned_ids).where(rdps: true, mdps: true).order('RANDOM()')
-      flex_dps.each do |flex|
-        dps[current_index % 3].push flex
-        current_index += 1
+        if next_index < count * 3
+          flex_dps = Character.where.not(id: already_assigned_ids).where(rdps: true, mdps: true).order('RANDOM()')
+          flex_dps.each do |flex|
+            dps[next_index % 3].push flex
+            next_index += 1
+            break if next_index >= count * 3
+          end
+        end
       end
 
       dps.shuffle
