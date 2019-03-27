@@ -29,7 +29,7 @@ class Character < ApplicationRecord
     def get_tanks(count, already_assigned_ids = [])
       tanks = []
 
-      tank_only = Character.where(tank: true, healer: false, dps: false).where.not(id: already_assigned_ids).order('RANDOM()')
+      tank_only = Character.where(tank: true, healer: false, rdps: false, mdps: false).where.not(id: already_assigned_ids).order('RANDOM()')
       tank_only.each do |tank|
         break if tanks.count == count
         tanks.push tank
@@ -49,7 +49,7 @@ class Character < ApplicationRecord
     def get_healers(count, already_assigned_ids = [])
       heals = []
 
-      heal_only = Character.where(healer: true, dps: false).where.not(id: already_assigned_ids).order('RANDOM()')
+      heal_only = Character.where(healer: true, rdps: false, mdps: false).where.not(id: already_assigned_ids).order('RANDOM()')
       heal_only.each do |healer|
         break if heals.count == count
         heals.push healer
@@ -68,22 +68,29 @@ class Character < ApplicationRecord
 
     def get_dps(count, already_assigned_ids = [])
       dps = []
+      current_index = 0
 
-      dps_only = Character.where(tank: false, healer: false, dps: true).where.not(id: already_assigned_ids).order('RANDOM()')
-      dps_only.each do |tank|
-        break if dps.count == count * 3
-        dps.push tank
+      count.times { |i| dps.push [] }
+
+      rdps_only = Character.where.not(id: already_assigned_ids).where(rdps: true, mdps: false).order('RANDOM()')
+      rdps_only.each do |rdps|
+        dps[current_index % 3].push rdps
+        current_index += 1
       end
 
-      if dps.count < count * 3
-        other_dps = Character.where(dps: true).where.not(id: dps_only.map(&:id)).where.not(id: already_assigned_ids).order('RANDOM()')
-        other_dps.each do |dpser|
-          break if dps.count == count * 3
-          dps.push dpser
-        end
+      mdps_only = Character.where.not(id: already_assigned_ids).where(rdps: false, mdps: true).order('RANDOM()')
+      mdps_only.each do |mdps|
+        dps[current_index % 3].push mdps
+        current_index += 1
       end
 
-      dps.shuffle.each_slice(count).to_a
+      flex_dps = Character.where.not(id: already_assigned_ids).where(rdps: true, mdps: true).order('RANDOM()')
+      flex_dps.each do |flex|
+        dps[current_index % 3].push flex
+        current_index += 1
+      end
+
+      dps.shuffle
     end
   end
 end
