@@ -11,6 +11,11 @@
 </p>
 
 <p>
+  <strong>Healer:</strong>
+  <%= @character.healer %>
+</p>
+
+<p>
   <strong>Melee Dps:</strong>
   <%= @character.mdps %>
 </p>
@@ -21,8 +26,8 @@
 </p>
 
 <p>
-  <strong>Healer:</strong>
-  <%= @character.healer %>
+  <strong>Allow Multiple Groups:</strong>
+  <%= @character.allow_multiple_groups %>
 </p>
 
 <%= link_to 'Edit', edit_character_path(@character) %> |

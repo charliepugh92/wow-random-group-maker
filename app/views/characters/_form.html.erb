@@ -22,6 +22,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :healer %>
+    <%= form.check_box :healer, id: :character_healer %>
+  </div>
+
+  <div class="field">
     <%= form.label :mdps %>
     <%= form.check_box :mdps, id: :character_mdps %>
   </div>
@@ -32,8 +37,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :healer %>
-    <%= form.check_box :healer, id: :character_healer %>
+    <%= form.label :allow_multiple_groups %>
+    <%= form.check_box :allow_multiple_groups, id: :allow_multiple_groups %>
   </div>
 
   <div class="actions">

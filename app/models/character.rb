@@ -49,7 +49,38 @@ class Character < ApplicationRecord
         fill_group[:dps].push nil
       end
 
+      fill_group = fill_empty_slots(fill_group)
+
       fill_group
+    end
+
+    def fill_empty_slots(group)
+      group_ids = []
+      
+      group_ids.push group[:tank].id unless group[:tank].nil?
+      group_ids.push group[:healer].id unless group[:healer].nil?
+      group[:dps].each do |dps|
+        group_ids.push dps.id unless dps.nil?
+      end
+
+      if group[:tank].nil?
+        group[:tank] = Character.where.not(id: group_ids).where(tank: true, allow_multiple_groups: true).order('RANDOM()').first
+        group_ids.push group[:tank].id unless group[:tank].nil?
+      end
+
+      if group[:healer].nil?
+        group[:healer] = Character.where.not(id: group_ids).where(healer: true, allow_multiple_groups: true).order('RANDOM()').first
+        group_ids.push group[:healer].id unless group[:healer].nil?
+      end
+
+      group[:dps].each_with_index do |dps, i|
+        if dps.nil?
+          group[:dps][i] = Character.where.not(id: group_ids).where('allow_multiple_groups = true AND (rdps = true OR mdps = true)').order('RANDOM()').first
+          group_ids.push group[:dps][i].id unless group[:dps][i].nil?
+        end
+      end
+
+      group
     end
 
     def create_groups(tanks, healers, dps)
