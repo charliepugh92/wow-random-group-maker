@@ -2,10 +2,25 @@
   - @groups.each_with_index do |group, i|
     .group
       %h1 Group #{i + 1}
-      %h3 Tank: #{group[:tank].name}
-      %h3 Healer: #{group[:healer].name}
+      %h3
+        Tank:
+        - if group[:tank].nil?
+          %i.gray Empty
+        - else
+          = group[:tank].name
+      %h3
+        Healer:
+        - if group[:healer].nil?
+          %i.gray Empty
+        - else
+          = group[:healer].name
       - group[:dps].each do |dps|
-        %h3 DPS: #{dps.name}
+        %h3
+          DPS:
+          - if dps.nil?
+            %i.gray Empty
+          - else
+            = dps.name
 
 .links
   = link_to 'Generate Again', groups_path

@@ -9,7 +9,47 @@ class Character < ApplicationRecord
 
       dps = get_dps(number_of_groups, tanks.map(&:id) + healers.map(&:id))
 
-      create_groups(tanks, healers, dps)
+      groups = create_groups(tanks, healers, dps)
+
+      fill_group = get_fill_group(groups)
+
+      groups.push fill_group if fill_group
+    end
+
+    def get_fill_group(full_groups)
+      assigned_ids = []
+
+      full_groups.each do |group|
+        assigned_ids.push group[:tank].id
+        assigned_ids.push group[:healer].id
+        group[:dps].each do |dps|
+          assigned_ids.push dps.id
+        end
+      end
+
+      unassigned_chars = Character.where.not(id: assigned_ids)
+
+      return false if unassigned_chars.length == 0
+
+      tank = get_tanks(1, assigned_ids)
+      assigned_ids.push tank.first.id unless tank.empty?
+
+      healer = get_healers(1, assigned_ids)
+      assigned_ids.push healer.first.id unless healer.empty?
+
+      dps = get_dps(1, assigned_ids)
+
+      fill_group = {
+        tank: (tank.empty? ? nil : tank.first),
+        healer: (healer.empty? ? nil : healer.first),
+        dps: dps.first
+      }
+
+      while(fill_group[:dps].count < 3)
+        fill_group[:dps].push nil
+      end
+
+      fill_group
     end
 
     def create_groups(tanks, healers, dps)
