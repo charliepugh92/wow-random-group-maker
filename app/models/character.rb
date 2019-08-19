@@ -17,7 +17,7 @@ class Character < ApplicationRecord
 
       groups.each do |group|
         while group[:dps].count < 3
-          group[:dps].push[:nil]
+          group[:dps].push nil
         end
       end
     end
