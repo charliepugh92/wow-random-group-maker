@@ -14,6 +14,12 @@ class Character < ApplicationRecord
       fill_group = get_fill_group(groups)
 
       groups.push fill_group if fill_group
+
+      groups.each do |group|
+        while group[:dps].count < 3
+          group[:dps].push[:nil]
+        end
+      end
     end
 
     def get_fill_group(full_groups)
