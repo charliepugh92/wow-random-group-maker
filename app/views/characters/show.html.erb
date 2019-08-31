@@ -30,5 +30,10 @@
   <%= @character.allow_multiple_groups %>
 </p>
 
+<p>
+  <strong>Skill Level:</strong>
+  <%= @character.skill_level.titleize %>
+</p>
+
 <%= link_to 'Edit', edit_character_path(@character) %> |
 <%= link_to 'Back', characters_path %>

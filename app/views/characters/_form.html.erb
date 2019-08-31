@@ -41,6 +41,11 @@
     <%= form.check_box :allow_multiple_groups, id: :allow_multiple_groups %>
   </div>
 
+  <div class="field">
+    <%= form.label :skill_level %>
+    <%= form.select :skill_level, Character.skill_levels.map { |k, v| [k.titleize, k] }, {}, { include_blank: true } %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

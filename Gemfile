@@ -10,6 +10,7 @@ end
 gem 'rails', '~> 5.1.6', '>= 5.1.6.1'
 gem "actionview", ">= 5.1.6.2"
 # Use sqlite3 as the database for Active Record
+gem 'awesome_print'
 gem 'pg'
 gem 'font-awesome-rails'
 gem 'haml'
