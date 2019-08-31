@@ -5,6 +5,11 @@
     }
     .role-icon {
       width: 30px;
+
+      &.role-icon-offset {
+        margin-left: -42px;
+        margin-right: 5px;
+      }
     }
   }
 }
