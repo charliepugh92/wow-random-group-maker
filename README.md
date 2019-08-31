@@ -1,7 +1,5 @@
 # World of Warcraft Random Dungeon Group Generator
 
-## Introduction
-
 Hello!
 
 This application, in simple terms, is a way to input a list of characters/people as well as what roles they play in WoW,
@@ -93,3 +91,13 @@ At this point the app is ready to go, except we need to set up the database.
 
 Once that's finished, you're ready to roll!
 Simply click the "Open app" button at the top of the page to go to your new app and start setting up characters.
+
+### Updates
+
+When new updates are made for this app, your app won't update automatically. If you want to get the latest version of this app follow the instructions at [this link](https://rick.cogley.info/post/update-your-forked-repository-directly-on-github/).
+After you update, if the database was changed in any way, it's likely your app will break.
+
+To fix it, go to heroku (if you're hosting there as reccommended), and click the "More" button in the top right.
+Then click "Run console", paste the following command, and hit run: `rake db:migrate`
+
+Once that is done, your app will be up and running again.
