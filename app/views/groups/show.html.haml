@@ -5,7 +5,7 @@
         .group.col-md-4.pt-5
           %h1 Group #{j + 1 + (i * 3)}
           %h3
-            = fa_icon 'crown', class: 'text-warning role-icon role-icon-offset' if group[:tank].high?
+            = fa_icon 'star', class: 'text-warning role-icon role-icon-offset' if group[:tank].high?
             = fa_icon 'shield', class: 'text-danger role-icon'
             %span.font-0 Tank:
             - if group[:tank].nil?
@@ -13,7 +13,7 @@
             - else
               = group[:tank].name
           %h3
-            = fa_icon 'crown', class: 'text-warning role-icon role-icon-offset' if group[:healer].high?
+            = fa_icon 'star', class: 'text-warning role-icon role-icon-offset' if group[:healer].high?
             = fa_icon 'plus', class: 'text-success role-icon'
             %span.font-0 Healer:
             - if group[:healer].nil?
@@ -22,7 +22,7 @@
               = group[:healer].name
           - group[:dps].each do |dps|
             %h3
-              = fa_icon 'crown', class: 'text-warning role-icon role-icon-offset' if dps.high?
+              = fa_icon 'star', class: 'text-warning role-icon role-icon-offset' if dps.high?
               = fa_icon 'magic', class: 'text-info role-icon'
               %span.font-0 DPS:
               - if dps.nil?
