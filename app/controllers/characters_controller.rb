@@ -7,11 +7,6 @@ class CharactersController < ApplicationController
     @characters = Character.order(:id).all
   end
 
-  # GET /characters/1
-  # GET /characters/1.json
-  def show
-  end
-
   # GET /characters/new
   def new
     @character = Character.new
@@ -28,7 +23,7 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
       if @character.save
-        format.html { redirect_to @character, notice: 'Character was successfully created.' }
+        format.html { redirect_to characters_path, notice: 'Character was successfully created.' }
         format.json { render :show, status: :created, location: @character }
       else
         format.html { render :new }
@@ -42,7 +37,7 @@ class CharactersController < ApplicationController
   def update
     respond_to do |format|
       if @character.update(character_params)
-        format.html { redirect_to @character, notice: 'Character was successfully updated.' }
+        format.html { redirect_to characters_path, notice: 'Character was successfully updated.' }
         format.json { render :show, status: :ok, location: @character }
       else
         format.html { render :edit }

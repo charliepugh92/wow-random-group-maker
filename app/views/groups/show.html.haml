@@ -1,27 +1,29 @@
 .groups
-  - @groups.each_with_index do |group, i|
-    .group
-      %h1 Group #{i + 1}
-      %h3
-        Tank:
-        - if group[:tank].nil?
-          %i.gray Empty
-        - else
-          = group[:tank].name
-      %h3
-        Healer:
-        - if group[:healer].nil?
-          %i.gray Empty
-        - else
-          = group[:healer].name
-      - group[:dps].each do |dps|
-        %h3
-          DPS:
-          - if dps.nil?
-            %i.gray Empty
-          - else
-            = dps.name
-
-.links
-  = link_to 'Generate Again', groups_path
-  = link_to 'Back to Characters', root_path
+  - @groups.each_slice(3).with_index do |slice, i|
+    .row
+      - slice.each_with_index do |group, j|
+        .group.col-md-4.pt-5
+          %h1 Group #{j + 1 + (i * 3)}
+          %h3
+            = fa_icon 'shield', class: 'text-danger role-icon'
+            %span.font-0 Tank:
+            - if group[:tank].nil?
+              %i.gray Empty
+            - else
+              = group[:tank].name
+          %h3
+            = fa_icon 'plus', class: 'text-success role-icon'
+            %span.font-0 Healer:
+            - if group[:healer].nil?
+              %i.gray Empty
+            - else
+              = group[:healer].name
+          - group[:dps].each do |dps|
+            %h3
+              = fa_icon 'magic', class: 'text-info role-icon'
+              %span.font-0 DPS:
+              - if dps.nil?
+                %i.gray Empty
+              - else
+                = dps.name
+          %br.font-0

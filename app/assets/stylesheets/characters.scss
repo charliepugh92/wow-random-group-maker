@@ -1,3 +1,38 @@
 // Place all the styles related to the characters controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.characters-table {
+  thead { 
+    th {
+      padding: 10px 20px;
+
+      &.center {
+        text-align: center;
+      }
+    }
+  }
+  tbody {
+    td {
+      vertical-align: inherit;
+      padding: 10px 20px;
+
+      &.center {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.characters-form {
+  .form-control {
+    &[type=checkbox] {
+      width: 30px;
+
+      &:focus {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+}

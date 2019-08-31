@@ -1,0 +1,41 @@
+%p#notice= notice
+
+%h1 Characters
+
+= link_to new_character_path, class: 'btn btn-success mt-2 mb-5' do
+  = fa_icon 'plus'
+  New Character
+
+%table.table.table-striped.characters-table
+  %thead
+    %tr
+      %th{ scope: 'col' } Name
+      %th.center{ scope: 'col' } Tank
+      %th.center{ scope: 'col' } Healer
+      %th.center{ scope: 'col' } Melee
+      %th.center{ scope: 'col' } Ranged
+      %th.center{ scope: 'col' } Fill
+      %th.center{ scope: 'col' } Skill
+      %th{ scope: 'col' } 
+  %tbody
+    - @characters.each do |character|
+      %tr
+        %td{ scope: 'row' }
+          = character.name
+        %td.center
+          = fa_icon 'check' if character.tank
+        %td.center
+          = fa_icon 'check' if character.healer
+        %td.center
+          = fa_icon 'check' if character.mdps
+        %td.center
+          = fa_icon 'check' if character.rdps
+        %td.center
+          = fa_icon 'check' if character.allow_multiple_groups
+        %td.center
+          = character.skill_level.titleize
+        %td.actions.center
+          = link_to edit_character_path(character), class: 'btn btn-link' do
+            = fa_icon 'pencil'
+          = link_to character_path(character), class: 'btn btn-link text-danger', method: :delete, data: { confirm: 'Are you sure?' } do
+            = fa_icon 'trash'
