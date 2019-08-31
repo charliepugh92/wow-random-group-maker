@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root 'characters#index'
   resources :characters, except: :show
   get 'groups', to: 'groups#show'

@@ -16,6 +16,15 @@
 @import 'font-awesome';
 @import 'characters.scss';
 @import 'groups.scss';
+@import 'devise.scss';
+
+input[type=checkbox].form-control {
+  width: 25px;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
 
 .links {
   margin-top: 30px;

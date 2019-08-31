@@ -15,6 +15,8 @@ gem 'pg'
 gem 'font-awesome-rails'
 gem 'haml'
 # Use Puma as the app server
+gem 'devise'
+gem 'devise_invitable'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem 'puma', '~> 3.7'
@@ -40,6 +42,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'dotenv-rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
