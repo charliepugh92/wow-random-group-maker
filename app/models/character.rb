@@ -172,7 +172,40 @@ class Character < ApplicationRecord
       fill_group
     end
 
+    def group_has_high_skill(group)
+      return true if group[:tank]&.high?
+      return true if group[:healer]&.high?
+      group[:dps].each { |d| return true if d&.high? }
+
+      false
+    end
+
     def fill_empty_slots(group)
+      missing_high_skill = !group_has_high_skill(group)
+
+      if missing_high_skill
+        available_high_skill = Character.high.where.not(id: ids_in_groups([group])).where(allow_multiple_groups: true).order('RANDOM()')
+        available_high_skill.each do |char|
+          roles = char.roles.shuffle
+          assigned = false
+          roles.each do |role|
+            if role == :dps
+              next if group[:dps].count >= 3
+
+              group[:dps].push char
+            else
+              next if group[role].present?
+
+              group[role] = char
+            end
+
+            assigned = true
+            break
+          end
+          break if assigned
+        end
+      end
+
       if group[:tank].nil?
         group[:tank] = Character.where.not(id: ids_in_groups([group])).where(tank: true, allow_multiple_groups: true).order('RANDOM()').first
       end
