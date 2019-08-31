@@ -1,4 +1,4 @@
-class CharactersController < ApplicationController
+class CharactersController < AuthenticatedController
   before_action :set_character, only: [:show, :edit, :update, :destroy]
 
   # GET /characters

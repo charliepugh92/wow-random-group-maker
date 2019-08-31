@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { invitations: 'users/invitations' }
   root 'characters#index'
   resources :characters, except: :show
   get 'groups', to: 'groups#show'
