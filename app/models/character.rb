@@ -295,7 +295,7 @@ class Character < ApplicationRecord
 
       groups.each_with_index do |group, i|
         while group[:dps].count < 3
-          group[i][:dps].push nil
+          groups[i][:dps].push nil
         end
       end
 
