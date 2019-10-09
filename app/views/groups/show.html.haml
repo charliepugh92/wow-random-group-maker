@@ -28,7 +28,8 @@
               = group[:healer].name
           - group[:dps].each do |dps|
             %h3
-              - if dps.high?
+
+              - if dps&.high?
                 = fa_icon 'star', class: 'text-warning role-icon role-icon-offset'
               - else
                 = fa_icon 'blank', class: 'text-warning role-icon role-icon-offset'
