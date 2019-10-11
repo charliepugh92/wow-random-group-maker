@@ -17,6 +17,7 @@ class GroupRun < ApplicationRecord
       run.fill_specific_role(:mdps, [:tank, :healer])
       run.fill_specific_role(:rdps, [:tank, :healer])
       run.fill_empty_dps
+      run.fill_empty_with_dups
 
       run.generate_fill_group
 
@@ -45,7 +46,10 @@ class GroupRun < ApplicationRecord
   end
 
   def generate_fill_group
-    missing_chars = Character.with_role.where.not(id: used_ids).order('RANDOM()').to_a
+    missing_chars = Character.with_role
+                             .where.not(id: used_ids)
+                             .order('RANDOM()')
+                             .to_a
     return if missing_chars.empty?
 
     group_ids = []
@@ -57,8 +61,9 @@ class GroupRun < ApplicationRecord
 
     fill_chars = Character.with_role
                           .where(allow_multiple_groups: true)
-                          .where.not(id: group_ids)
+                          .where.not(id: group_ids + multiple_group_ids)
                           .order('RANDOM()').to_a
+
     fill_chars.count.times do
       char, fill_chars = fill_group.fill_random_slot(fill_chars)
       group_ids.push char.id unless char.nil?
@@ -73,6 +78,22 @@ class GroupRun < ApplicationRecord
       while g.dps.count < 3
         break if pool.empty?
         char, pool = g.fill_specific_slot(pool, :dps)
+        used_ids.push char.id unless char.nil?
+      end
+    end
+  end
+
+  def fill_empty_with_dups
+    pool = Character.with_role
+                    .where.not(id: multiple_group_ids)
+                    .order('RANDOM()')
+                    .to_a
+
+    groups.each do |g|
+      pool.count.times do
+        break if g.tank && g.healer && g.dps.count >= 3
+        
+        char, pool = g.fill_random_slot(pool)
         used_ids.push char.id unless char.nil?
       end
     end
@@ -114,7 +135,17 @@ class GroupRun < ApplicationRecord
     end
   end
 
-  private
+  def multiple_group_ids
+    found = {}
+    ids = []
+
+    used_ids.each do |id|
+      ids.push id if found[id]
+      found[id] = true
+    end
+
+    ids.uniq
+  end
 
   def used_ids
     @used_ids ||= current_ids
