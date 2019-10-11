@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190831193448) do
+ActiveRecord::Schema.define(version: 20191011000522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,24 @@ ActiveRecord::Schema.define(version: 20190831193448) do
     t.boolean "mdps"
     t.boolean "allow_multiple_groups", default: false
     t.integer "skill_level", default: 1
+  end
+
+  create_table "group_dps", force: :cascade do |t|
+    t.bigint "group_id"
+    t.integer "dps_id"
+    t.index ["group_id"], name: "index_group_dps_on_group_id"
+  end
+
+  create_table "group_runs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.bigint "group_run_id"
+    t.integer "tank_id"
+    t.integer "healer_id"
+    t.index ["group_run_id"], name: "index_groups_on_group_run_id"
   end
 
   create_table "users", force: :cascade do |t|
