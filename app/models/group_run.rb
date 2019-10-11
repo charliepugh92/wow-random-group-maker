@@ -1,5 +1,5 @@
 class GroupRun < ApplicationRecord
-  has_many :groups
+  has_many :groups, dependent: :destroy
 
   attr_accessor :used_ids
 

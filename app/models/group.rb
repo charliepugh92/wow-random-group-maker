@@ -2,7 +2,7 @@ class Group < ApplicationRecord
   belongs_to :group_run
   belongs_to :tank, class_name: 'Character', optional: true
   belongs_to :healer, class_name: 'Character', optional: true
-  has_many :group_dps, class_name: 'GroupDps'
+  has_many :group_dps, class_name: 'GroupDps', dependent: :destroy
   has_many :dps, through: :group_dps, class_name: 'Character', foreign_key: :dps_id
 
   def list
@@ -24,15 +24,12 @@ class Group < ApplicationRecord
   if Rails.env.development?
     def log_pretty_list
       l = pretty_list
-      puts '--------------------------------'
       puts ''
       puts "Tank: #{l[:tank]}"
       puts "Healer: #{l[:healer]}"
       l[:dps].each do |d|
         puts "DPS: #{d}"
       end
-      puts ''
-      puts '--------------------------------'
     end
   end
 
@@ -57,27 +54,39 @@ class Group < ApplicationRecord
 
   def fill_random_slot(pool)
     return [nil, pool] if pool.empty?
+    
+    char = pool.pop
+    return [nil, pool.unshift(char)] if in_group?(char)
+
     dps_full = dps.count >= 3
-
-    pool.count.times do
-      char = pool.pop
-      char.roles.shuffle.each do |role|
-        case role
-        when :dps
-          next if dps_full
-          dps << char
-        when :healer
-          next unless healer_id.nil?
-          update(healer: char)
-        when :tank
-          next unless tank_id.nil?
-          update(tank: char)
-        end
-
-        return [char, pool]
+    
+    char.roles.shuffle.each do |role|
+      case role
+      when :dps
+        next if dps_full
+        dps << char
+      when :healer
+        next unless healer_id.nil?
+        update(healer: char)
+      when :tank
+        next unless tank_id.nil?
+        update(tank: char)
       end
-      pool.unshift char
-      return [nil, pool]
+
+      return [char, pool]
     end
+
+    pool.unshift char
+    return [nil, pool]
+  end
+
+  private
+
+  def in_group?(char)
+    return true if char == tank
+    return true if char == healer
+    dps.each { |d| return true if char == d }
+
+    false
   end
 end
