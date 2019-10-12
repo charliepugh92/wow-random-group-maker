@@ -35,4 +35,18 @@
       }
     }
   }
+
+  .flex-center {
+    display: flex;
+    justify-content: center;
+
+    .flex-form-wrapper {
+      width: 100%;
+      text-align: center;
+
+      .form-control[type=checkbox] {
+        margin: 0 auto;
+      }
+    }
+  }
 }

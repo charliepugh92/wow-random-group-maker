@@ -10,22 +10,30 @@
     .col-md-10
       = f.select :skill_level, Character.skill_levels.map { |k, _| [k.titleize, k] }, {}, { class: 'form-control', include_blank: true }
   .row.mt-4
-    .col-md-2
-    .col-md-2
-      = f.label :tank, class: 'form-label'
-      = f.check_box :tank, class: 'form-control'
-    .col-md-2
-      = f.label :healer, class: 'form-label'
-      = f.check_box :healer, class: 'form-control'
-    .col-md-2
-      = f.label :mdps, class: 'form-label'
-      = f.check_box :mdps, class: 'form-control'
-    .col-md-2
-      = f.label :rdps, class: 'form-label'
-      = f.check_box :rdps, class: 'form-control'
-    .col-md-2
-      = f.label :allow_multiple_groups, 'Fill Extra', class: 'form-label'
-      = f.check_box :allow_multiple_groups, class: 'form-control'
+    .col-md-2.flex-center
+      .flex-form-wrapper
+        = f.label :tank, class: 'form-label'
+        = f.check_box :tank, class: 'form-control'
+    .col-md-2.flex-center
+      .flex-form-wrapper
+        = f.label :healer, class: 'form-label'
+        = f.check_box :healer, class: 'form-control'
+    .col-md-2.flex-center
+      .flex-form-wrapper
+        = f.label :mdps, class: 'form-label'
+        = f.check_box :mdps, class: 'form-control'
+    .col-md-2.flex-center
+      .flex-form-wrapper
+        = f.label :rdps, class: 'form-label'
+        = f.check_box :rdps, class: 'form-control'
+    .col-md-2.flex-center
+      .flex-form-wrapper
+        = f.label :allow_multiple_groups, 'Fill Extra', class: 'form-label'
+        = f.check_box :allow_multiple_groups, class: 'form-control'
+    .col-md-2.flex-center
+      .flex-form-wrapper
+        = f.label :do_not_include, 'Do Not Include', class: 'form-label'
+        = f.check_box :do_not_include, class: 'form-control'
   .row.actions.mt-4
     .col-md-2
       = f.submit class: 'btn btn-success' do

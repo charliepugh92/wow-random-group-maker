@@ -5,7 +5,7 @@ class GroupRun < ApplicationRecord
 
   class << self
     def generate
-      count = Character.with_role.count / 5
+      count = Character.available_for_runs.count / 5
 
       run = GroupRun.create
       groups = count.times { Group.create(group_run: run) }
@@ -26,7 +26,7 @@ class GroupRun < ApplicationRecord
   end
 
   def available_characters
-    Character.with_role
+    Character.available_for_runs
              .where.not(id: used_ids)
              .order('RANDOM()')
   end
@@ -46,7 +46,7 @@ class GroupRun < ApplicationRecord
   end
 
   def generate_fill_group
-    missing_chars = Character.with_role
+    missing_chars = Character.available_for_runs
                              .where.not(id: used_ids)
                              .order('RANDOM()')
                              .to_a
@@ -59,7 +59,7 @@ class GroupRun < ApplicationRecord
       group_ids.push char.id unless char.nil?
     end
 
-    fill_chars = Character.with_role
+    fill_chars = Character.available_for_runs
                           .where(allow_multiple_groups: true)
                           .where.not(id: group_ids + multiple_group_ids)
                           .order('RANDOM()').to_a
@@ -84,7 +84,7 @@ class GroupRun < ApplicationRecord
   end
 
   def fill_empty_with_dups
-    pool = Character.with_role
+    pool = Character.available_for_runs
                     .where.not(id: multiple_group_ids)
                     .order('RANDOM()')
                     .to_a
@@ -134,6 +134,8 @@ class GroupRun < ApplicationRecord
       used_ids.push char.id unless char.nil?
     end
   end
+
+  private
 
   def multiple_group_ids
     found = {}

@@ -65,6 +65,6 @@ class CharactersController < AuthenticatedController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def character_params
-    params.require(:character).permit(:name, :tank, :mdps, :rdps, :healer, :allow_multiple_groups, :skill_level)
+    params.require(:character).permit(:name, :tank, :mdps, :rdps, :healer, :allow_multiple_groups, :skill_level, :do_not_include)
   end
 end

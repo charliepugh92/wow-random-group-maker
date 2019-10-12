@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191011000522) do
+ActiveRecord::Schema.define(version: 20191011235219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20191011000522) do
     t.boolean "mdps"
     t.boolean "allow_multiple_groups", default: false
     t.integer "skill_level", default: 1
+    t.boolean "do_not_include", default: false
   end
 
   create_table "group_dps", force: :cascade do |t|
