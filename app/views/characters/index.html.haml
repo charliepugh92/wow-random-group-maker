@@ -24,17 +24,41 @@
         %td{ scope: 'row' }
           = character.name
         %td.center
-          = fa_icon 'check' if character.tank
+          = link_to character_toggle_path(character_id: character.id, attribute: 'tank'), method: :put do
+            - if character.tank
+              = fa_icon 'check-square'
+            - else
+              = fa_icon 'square'
         %td.center
-          = fa_icon 'check' if character.healer
+          = link_to character_toggle_path(character_id: character.id, attribute: 'healer'), method: :put do
+            - if character.healer
+              = fa_icon 'check-square'
+            - else
+              = fa_icon 'square'
         %td.center
-          = fa_icon 'check' if character.mdps
+          = link_to character_toggle_path(character_id: character.id, attribute: 'mdps'), method: :put do
+            - if character.mdps
+              = fa_icon 'check-square'
+            - else
+              = fa_icon 'square'
         %td.center
-          = fa_icon 'check' if character.rdps
+          = link_to character_toggle_path(character_id: character.id, attribute: 'rdps'), method: :put do
+            - if character.rdps
+              = fa_icon 'check-square'
+            - else
+              = fa_icon 'square'
         %td.center
-          = fa_icon 'check' if character.allow_multiple_groups
+          = link_to character_toggle_path(character_id: character.id, attribute: 'allow_multiple_groups'), method: :put do
+            - if character.allow_multiple_groups
+              = fa_icon 'check-square'
+            - else
+              = fa_icon 'square'
         %td.center
-          = fa_icon 'check' if character.do_not_include
+          = link_to character_toggle_path(character_id: character.id, attribute: 'do_not_include'), method: :put do
+            - if character.do_not_include
+              = fa_icon 'check-square'
+            - else
+              = fa_icon 'square'
         %td.center
           = character.skill_level.titleize
         %td.actions.center
