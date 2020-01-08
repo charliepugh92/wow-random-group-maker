@@ -4,7 +4,7 @@ class CharactersController < AuthenticatedController
   # GET /characters
   # GET /characters.json
   def index
-    @characters = Character.order(:id).all
+    @characters = Character.order(:name).all
   end
 
   # GET /characters/new
