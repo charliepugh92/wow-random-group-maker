@@ -9,6 +9,7 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6', '>= 5.1.6.1'
 gem "actionview", ">= 5.1.6.2"
+gem 'bundler-audit'
 # Use sqlite3 as the database for Active Record
 gem 'awesome_print'
 gem 'pg'
