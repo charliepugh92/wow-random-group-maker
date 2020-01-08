@@ -20,6 +20,13 @@
       &.center {
         text-align: center;
       }
+
+      &.attribute {
+        .fa {
+          font-size: 1.5rem;
+          color: black;
+        }
+      }
     }
   }
 }

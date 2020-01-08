@@ -23,42 +23,42 @@
       %tr
         %td{ scope: 'row' }
           = character.name
-        %td.center
+        %td.center.attribute
           = link_to character_toggle_path(character_id: character.id, attribute: 'tank'), method: :put do
             - if character.tank
-              = fa_icon 'check-square'
+              = fa_icon 'check-square-o'
             - else
-              = fa_icon 'square'
-        %td.center
+              = fa_icon 'square-o'
+        %td.center.attribute
           = link_to character_toggle_path(character_id: character.id, attribute: 'healer'), method: :put do
             - if character.healer
-              = fa_icon 'check-square'
+              = fa_icon 'check-square-o'
             - else
-              = fa_icon 'square'
-        %td.center
+              = fa_icon 'square-o'
+        %td.center.attribute
           = link_to character_toggle_path(character_id: character.id, attribute: 'mdps'), method: :put do
             - if character.mdps
-              = fa_icon 'check-square'
+              = fa_icon 'check-square-o'
             - else
-              = fa_icon 'square'
-        %td.center
+              = fa_icon 'square-o'
+        %td.center.attribute
           = link_to character_toggle_path(character_id: character.id, attribute: 'rdps'), method: :put do
             - if character.rdps
-              = fa_icon 'check-square'
+              = fa_icon 'check-square-o'
             - else
-              = fa_icon 'square'
-        %td.center
+              = fa_icon 'square-o'
+        %td.center.attribute
           = link_to character_toggle_path(character_id: character.id, attribute: 'allow_multiple_groups'), method: :put do
             - if character.allow_multiple_groups
-              = fa_icon 'check-square'
+              = fa_icon 'check-square-o'
             - else
-              = fa_icon 'square'
-        %td.center
+              = fa_icon 'square-o'
+        %td.center.attribute
           = link_to character_toggle_path(character_id: character.id, attribute: 'do_not_include'), method: :put do
             - if character.do_not_include
-              = fa_icon 'check-square'
+              = fa_icon 'check-square-o'
             - else
-              = fa_icon 'square'
+              = fa_icon 'square-o'
         %td.center
           = character.skill_level.titleize
         %td.actions.center
