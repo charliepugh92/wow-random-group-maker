@@ -24,7 +24,12 @@
       &.attribute {
         .fa {
           font-size: 1.5rem;
-          color: black;
+          color: #3d3d3d;
+
+          &.fa-check-square {
+            background-color: lime;
+            line-height: 1rem;
+          }
         }
       }
     }
