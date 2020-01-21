@@ -7,6 +7,8 @@
           %h3
             - if group[:tank]&.high?
               = fa_icon 'star', class: 'text-warning role-icon role-icon-offset'
+            - elsif group[:tank]&.low?
+              = fa_icon 'exclamation', class: 'thin text-danger role-icon role-icon-offset'
             - else
               = fa_icon 'blank', class: 'text-warning role-icon role-icon-offset'
             = fa_icon 'shield', class: 'text-danger role-icon'
@@ -18,6 +20,8 @@
           %h3
             - if group[:healer]&.high?
               = fa_icon 'star', class: 'text-warning role-icon role-icon-offset'
+            - elsif group[:healer]&.low?
+              = fa_icon 'exclamation', class: 'thin text-danger role-icon role-icon-offset'
             - else
               = fa_icon 'blank', class: 'text-warning role-icon role-icon-offset'
             = fa_icon 'plus', class: 'text-success role-icon'
@@ -31,6 +35,8 @@
 
               - if dps&.high?
                 = fa_icon 'star', class: 'text-warning role-icon role-icon-offset'
+              - elsif dps&.low?
+                = fa_icon 'exclamation', class: 'thin text-danger role-icon role-icon-offset'
               - else
                 = fa_icon 'blank', class: 'text-warning role-icon role-icon-offset'
               = fa_icon 'magic', class: 'text-info role-icon'
